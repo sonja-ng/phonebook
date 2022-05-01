@@ -3,7 +3,9 @@ import './UserForm.css';
 
 const UserForm = () => {
     const [ buttonColor, setButtonColor ] = useState('red')
+    const [ disableStatus, setDisableStatus ] = useState(false);
 
+    const btnColor = buttonColor === 'red' ? 'blue': 'red'
     return(
         <div> 
             <form>
@@ -19,12 +21,20 @@ const UserForm = () => {
                 </label>
                 <button>Submit</button>
             </form>
-            <button 
+            <button
                 className={buttonColor} 
-                onClick={() => setButtonColor(buttonColor === 'red' ? 'blue': 'red')}
+                onClick={() => setButtonColor(btnColor)}
+                disabled={disableStatus}
             >
-            Change to {buttonColor === 'red' ? 'blue' : 'red'}
+            Change to {btnColor}
             </button>
+            <label>Change button status
+            <input 
+                type="checkbox"
+                aria-checked={disableStatus}
+                onChange={(e) => setDisableStatus(e.target.checked) }
+            />
+            </label>
         </div>
     )
 }

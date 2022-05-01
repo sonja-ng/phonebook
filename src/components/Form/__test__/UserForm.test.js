@@ -58,3 +58,25 @@ test('button has correct initial color and initial text', ()=>{
     expect(colorBtn).toHaveClass('blue')
     expect(colorBtn.textContent).toMatch(/Change to red/i)
 });
+
+test('initial conditions of button should be enabled and checkbox should not be checked', ()=>{
+    render(<UserForm />)
+    const colorBtn = screen.getByRole('button', { name: /Change to blue/i })
+    const checkboxEl = screen.getByRole('checkbox', { name: /change button status/i})
+
+    expect(colorBtn).toBeEnabled()
+    expect(checkboxEl).not.toBeChecked()
+})
+
+test('button is disabled on first checkbox click and enabled on second click', ()=>{
+    render(<UserForm />)
+
+    const colorBtn = screen.getByRole('button', { name: /Change to blue/i })
+    const checkboxEl = screen.getByRole('checkbox', { name: /change button status/i})
+
+    fireEvent.click(checkboxEl);
+    expect(colorBtn).toBeDisabled()
+    
+    fireEvent.click(checkboxEl);
+    expect(colorBtn).toBeEnabled()
+})
